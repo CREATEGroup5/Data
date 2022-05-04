@@ -11,7 +11,18 @@ def classWeightedAccuracy(csv1, csv2):
     pass
 
 def averagePrecision():
-    pass
+    groundTruth = pd.read_csv(csv1)
+    predictions = pd.read_csv(csv2)
+    tasksTruth = groundTruth["Overall Task"]
+    toolsTruth = groundTruth["Tool"]
+    predTruth = predictions["Overall Task"]
+    toolsPred = predictions["Tool"]
+
+    precision1 = sklearn.metrics.average_precision_score(tasksTruth, tasksPred, average='macro', pos_label=1, sample_weight=None)
+    precision2 = sklearn.metrics.average_precision_score(toolsTruth, toolsPred, average='macro', pos_label=1, sample_weight=None)
+
+    print("Precision for tasks: ", precision1)
+    print("Precision for tools: ", precision2)
 
 def averageRecall():
     pass
