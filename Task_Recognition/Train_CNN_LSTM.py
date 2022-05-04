@@ -275,6 +275,7 @@ class Train_CNN_LSTM:
                 TrainIndexes = balancedTrainData.index
                 ValIndexes = balancedValData.index
 
+            # We added augmentations = True to allow for default processing
             cnnTrainDataSet = CNNSequence(self.dataCSVFile, TrainIndexes, self.batch_size, toolLabelName, augmentations=True)
             cnnValDataSet = CNNSequence(self.dataCSVFile, ValIndexes, self.batch_size, toolLabelName)
 
