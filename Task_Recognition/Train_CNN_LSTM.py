@@ -274,7 +274,7 @@ class Train_CNN_LSTM:
             self.networkType = "CNN_LSTM"
             self.dataCSVFile = pandas.read_csv(FLAGS.data_csv_file)
             # adds the option for a luo validation
-            self.leave_user = FLAG.leave_user
+            self.leave_user = FLAGS.leave_user
             self.validation_percentage = FLAGS.validation_percentage
 
             self.numEpochs = FLAGS.num_epochs_cnn
