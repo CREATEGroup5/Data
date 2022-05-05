@@ -13,8 +13,8 @@ def calc_iou(R, img_data, C, class_mapping,labelName,width,height):
 	#(width, height) = (img_data['width'], img_data['height'])
 	# get image dimensions for resizing
 	(resized_width, resized_height) = data_generators.get_new_img_size(width, height, C.im_size)
-	resized_width = 800
-	resized_height = 600
+# 	resized_width = 800
+#	resized_height = 600
 
 	gta = np.zeros((len(bboxes), 4))
 
