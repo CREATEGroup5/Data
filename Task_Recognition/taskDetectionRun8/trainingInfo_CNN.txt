@@ -1,0 +1,14 @@
+
+Network type: CNN_LSTM
+Data CSV: C:/Users/perklab/Documents/CREATE_Challenge/Training_Data/Training_Data.csv
+Number of Epochs: 9
+Batch size: 8
+Learning rate: 1e-06
+Data balanced: False
+Loss function: <bound method Train_CNN_LSTM.focal_loss of <__main__.Train_CNN_LSTM object at 0x000001560D32DF70>>
+
+Training Statistics: 
+	Final training loss: 0.002995614195242524
+	Final training accuracy: 0.9590119123458862
+	Final validation loss: 0.016899818554520607
+	Final validation accuracy: 0.8043017387390137

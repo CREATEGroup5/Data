@@ -1,0 +1,10 @@
+Cross-section
+Long-axis
+anesthetic
+dilator
+insert_catheter
+insert_guidewire
+insert_needle
+nothing
+remove_guidewire
+scalpel

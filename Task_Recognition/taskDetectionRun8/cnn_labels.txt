@@ -1,0 +1,9 @@
+anesthetic
+catheter
+dilator
+guidewire
+guidewire_casing
+nothing
+scalpel
+syringe
+ultrasound
