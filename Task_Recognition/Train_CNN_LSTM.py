@@ -30,6 +30,35 @@ class Train_CNN_LSTM:
         trainIndexes,valIndexes = sklearn.model_selection.train_test_split(dataset.index,test_size=val_percentage,shuffle=False)
         return trainIndexes,valIndexes
 
+    def loadDataLUO(self, dataset):
+        valIndexes = []
+        trainIndexes = []
+
+        # finds all of the videos and users in the dataset
+        videos = dataset["Folder"].unique()
+        users = []
+
+        for video in videos:
+            video = video.split("\\")[-1]
+            user = video.split("-")[0]
+            if user not in users:
+                users.append(user)
+
+        # selects a random user to use for the validation set
+        valid_num = random.randint(0, (len(users) - 1))
+
+        valid_user = users[valid_num]
+
+        #assigns indexes that correspond to the validation user to valIndexes and the rest to trainIndexes
+        for frame in dataset["Folder"].index:
+            if valid_user in dataset["Folder"][frame]:
+                valIndexes.append(frame)
+
+            else:
+                trainIndexes.append(frame)
+
+        return trainIndexes,valIndexes
+
     def convertTextToNumericLabels(self,textLabels,labelValues):
         numericLabels =[]
         for i in range(len(textLabels)):
@@ -244,6 +273,8 @@ class Train_CNN_LSTM:
             self.saveLocation = FLAGS.save_location
             self.networkType = "CNN_LSTM"
             self.dataCSVFile = pandas.read_csv(FLAGS.data_csv_file)
+            # adds the option for a luo validation
+            self.leave_user = FLAG.leave_user
             self.validation_percentage = FLAGS.validation_percentage
 
             self.numEpochs = FLAGS.num_epochs_cnn
@@ -265,7 +296,11 @@ class Train_CNN_LSTM:
             taskLabelName = "Overall Task"
             toolLabelName = "Tool"
 
-            TrainIndexes, ValIndexes = self.loadData(self.validation_percentage, self.dataCSVFile)
+            if self.leave_user:
+                TrainIndexes, ValIndexes = self.loadDataLUO(self.dataCSVFile)
+            else:
+                TrainIndexes, ValIndexes = self.loadData(self.validation_percentage, self.dataCSVFile)
+
             if self.balanceCNN:
                 trainData = self.dataCSVFile.iloc[TrainIndexes]
                 valData = self.dataCSVFile.iloc[ValIndexes]
@@ -359,6 +394,14 @@ if __name__ == '__main__':
       type=str,
       default='',
       help='Name of the directory where the models and results will be saved'
+  )
+
+  # flag set for user validation split
+  parser.add_argument(
+      '--leave_user',
+      type=bool,
+      default=True,
+      help='Whether network uses leave user out validation'
   )
   parser.add_argument(
       '--validation_percentage',
